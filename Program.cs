@@ -34,8 +34,54 @@
             Console.WriteLine("4. feladat");
             Console.WriteLine($"Játékosok száma: {jatekosok.Count}");
 
+            Random rnd = new Random();
+            List<int> huzott = new List<int>();
 
+            int sorszam = 1;
+            bool vanBingo = false;
 
+            while (!vanBingo)
+            {
+                int szam;
+                do
+                {
+                    szam = rnd.Next(1, 76);
+                } while (huzott.Contains(szam));
+
+                huzott.Add(szam);
+
+                Console.WriteLine($"{sorszam}. húzás: {szam}");
+                sorszam++;
+
+                foreach (var j in jatekosok)
+                {
+                    j.SorsoltSzamotJelol(szam);
+                    if (j.BingoEll())
+                        vanBingo = true;
+                }
+            }
+
+            Console.WriteLine("8. feladat");
+
+            foreach (var j in jatekosok)
+            {
+                if (j.BingoEll())
+                {
+                    Console.WriteLine($"Nyertes: {j.Nev}");
+
+                    for (int i = 0; i < 5; i++)
+                    {
+                        for (int k = 0; k < 5; k++)
+                        {
+                            if (j.Jeloles[i, k])
+                                Console.Write($"{j.Kartya[i, k],4}");
+                            else
+                                Console.Write($"{"0",4}");
+                        }
+                        Console.WriteLine();
+                    }
+                }
+            }
         }
     }
 }
