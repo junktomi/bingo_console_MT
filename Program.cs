@@ -34,6 +34,8 @@
             Console.WriteLine("4. feladat");
             Console.WriteLine($"Játékosok száma: {jatekosok.Count}");
 
+
+
         }
     }
 }
